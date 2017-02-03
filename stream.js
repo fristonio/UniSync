@@ -1,10 +1,14 @@
 var http=require('http');
 var event=require('events');
 var express=require('express');
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');//will be required if we do form data send receiving through express
+var playing=false;
 var userCount=0;
 var users=[];
+var nowplay;
 var app=express();
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 var server=http.createServer(app,function(req,res){
@@ -32,12 +36,19 @@ io.on('connection', function(client){
 	console.log('socekt io working fine');
 	userCount+=1;
 	console.log('No of user connected to the server are   :  '+userCount);
-	io.emit('event1');
+	//io.emit('event1');
+
+	if(playing==true){
+		io.emit('playnow',nowplay);
+	}
 
   	client.on('dataemit', function(data){
+  		if (playing==false) {
   		console.log('Link given by the user is  :  '+data.link);
   		console.log('Unique timestamp :  '+data.time);
-
+  		console.log(data);
+  		nowplay=data;
+  		playing=true; }
   	});
   	client.on('disconnect', function(){
   		console.log('user disconnected  ');

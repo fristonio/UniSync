@@ -9,3 +9,7 @@ h1{
 .formdiv form{
 	text-align: center;
 }
+.videodiv{
+	display: flex;
+	justify-content: center;
+}
