@@ -33,8 +33,11 @@ io.on('connection', function(client){
 	userCount+=1;
 	console.log('No of user connected to the server are   :  '+userCount);
 	io.emit('event1');
+
   	client.on('dataemit', function(data){
-  		console.log('Link given by the user is  :  '+data);
+  		console.log('Link given by the user is  :  '+data.link);
+  		console.log('Unique timestamp :  '+data.time);
+
   	});
   	client.on('disconnect', function(){
   		console.log('user disconnected  ');
