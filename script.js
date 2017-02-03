@@ -15,7 +15,8 @@ document.getElementsByTagName('form')[0].onsubmit=function(){
 };
 
 socket.on('playnow',function(data){
-	var t=(Date.now()-data.time)/100;
+	var t=(Date.now()-data.time)/1000;
+	t=parseInt(t)+1;
 	console.log(t);
 	var link=data.link+"&start="+t;
 	console.log(link);
