@@ -1,3 +1,4 @@
+window.onload=function(){
 var socket = io();
 console.log(socket.id);
 socket.on('connect', function(){
@@ -22,3 +23,7 @@ socket.on('playnow',function(data){
 	console.log(link);
 	document.getElementById("mainvid").src=link;
 });
+document.getElementsByClassName('sync')[0].onclick=function(){
+	socket.emit('sync');
+}
+};

@@ -44,14 +44,14 @@ io.on('connection', function(client){
 	//console.log(client);
 	users.push(client.id);
 	userCount+=1;
+	if(playing==true){
+		io.emit('playnow',nowplay);
+	}
 	console.log('No of user connected to the server are   :  '+userCount);
 	//io.emit('event1');
 	/*if((Date.now()-nowplay.time)>30000){
 		nowplay.time=Date.now();
 	}*/
-	if(playing==true){
-		io.emit('playnow',nowplay);
-	}
 
   	client.on('dataemit', function(data){
   		//if (playing==false) {
@@ -66,15 +66,20 @@ io.on('connection', function(client){
 
 
   	client.on('disconnect', function(){
-  		console.log('user disconnected  ');
+  		console.log('user disconnected  :  '+client.id);
   		userCount-=1;
   		console.log('Current users in the room are  :  '+userCount);
+  		var index=users.indexOf(client.id);
+  		users.splice(index,1);
   	});
 
 
-  	client.on('getinfo',function(){
+  	/*client.on('getinfo',function(){
   		console.log(users);
-  	});
+  	});*/
+  	console.log(users);
 });
+
+
 server.listen(3000);
 console.log('Server running at 3000 port in the localhost');
