@@ -5,7 +5,7 @@ window.onload=function(){
 	  console.log(socket.id);
 	});
 
-
+	var roomdata;
 	/*document.getElementsByTagName('form')[0].onsubmit=function(){
 		var link=document.getElementsByTagName('input')[0].value ;
 		link=link.replace('/watch?v=','/embed/');
@@ -53,4 +53,31 @@ window.onload=function(){
 		socket.emit('room-select',this.id);
 	});
 
+	socket.on('roompagenav',function(data){
+		$('#navpage').css('display','none');
+		$('#roompage').css('display','block');
+		roomdata=data;
+		$('#roompage').attr('id',roomdata.id);
+		console.log(roomdata);
+	});
+
+	document.getElementsByTagName('form')[0].onsubmit=function(){
+		var link=document.getElementsByTagName('input')[0].value ;
+		link=link.replace('/watch?v=','/embed/');
+		link=link+"?autoplay=1";
+		socket.emit('dataemit',{'link': link , 'time':Date.now(),'roomid':roomdata.id});
+		document.getElementById("mainvid").src=link;
+		return false;
+	};
+
+	socket.on('playnow',function(data){
+		t=data.curtime;
+		console.log(t);
+		var link=data.link+"&start="+t;
+		console.log(link);
+		document.getElementById("mainvid").src=link;
+	});
+	document.getElementsByClassName('sync-btn')[0].onclick=function(){
+		socket.emit('sync',roomdata.id);
+	}
 };

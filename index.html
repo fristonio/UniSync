@@ -6,42 +6,47 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	</head>
 	<body>
-		<div id="private-room">
-			
-		</div>
-		<div class="join-room">
-			<span class="glyphicon glyphicon-remove close"></span>
-				<button class="btn btn-primary"><h3>Public Room</h3></button>
-				<button class="btn btn-primary privateroom"><h3>Private Room</h3></button>
+		<div id="navpage">
+
+			<div id="private-room">
+				
+			</div>
+			<div class="join-room">
+				<span class="glyphicon glyphicon-remove close"></span>
+					<button class="btn btn-primary"><h3>Public Room</h3></button>
+					<button class="btn btn-primary privateroom"><h3>Private Room</h3></button>
+			</div>
+
+			<div id="room-select">
+				<div>
+					<div class="rooms">
+						<button class="btn btn-success create"><h3>CREATE ROOM</h3></button>
+					</div>
+					<div class="rooms">
+						<button class="btn btn-success join"><h3>JOIN ROOM</h3></button>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
-		<div id="room-select">
-			<div>
-				<div class="rooms">
-					<button class="btn btn-success create"><h3>CREATE ROOM</h3></button>
+			<div id="roompage">
+				<h1>APP DEMO</h1>
+				<div class="formdiv">
+					<form action="">
+						<h3>Enter the video link from the youtube : </h3>
+						<input type="text" name="link"><br>
+						<input type="submit">
+					</form>
 				</div>
-				<div class="rooms">
-					<button class="btn btn-success join"><h3>JOIN ROOM</h3></button>
+				<div class="videodiv">
+					<iframe src="" frameborder="0" id="mainvid" height="315" width="560" allowfullscreen></iframe>
+				</div>
+				<div class="sync">
+					<button class="btn btn-info sync-btn"><h4>SYNC</h4></button>
 				</div>
 			</div>
-		</div>
 
-		<div id="share-page">
-			<h1>APP DEMO</h1>
-			<div class="formdiv">
-				<form action="">
-					<h3>Enter the video link from the youtube : </h3>
-					<input type="text" name="link"><br>
-					<input type="submit">
-				</form>
-			</div>
-			<div class="videodiv">
-				<iframe src="" frameborder="0" id="mainvid" height="315" width="560" allowfullscreen></iframe>
-			</div>
-			<div class="sync">
-				<button class="btn btn-info sync-btn"><h4>SYNC</h4></button>
-			</div>
-		</div>
 		<script src="/script.js"></script>
 	</body>
 </html>

@@ -3,11 +3,13 @@ var event=require('events');
 var express=require('express');
 var fs=require('fs');
 //var bodyParser = require('body-parser');//will be required if we do form data send receiving through express
-//var playing=false; //wheather a video is being played or not
+ //wheather a video is being played or not
 var userCount=0;  //total no of user connected to the room at present
 var users=[]; //total users connected to the server at the moment 
 //var nowplay={'link':'','time':Date.now(),'curtime':0}; //data of the video being played at the current moment
 var app=express();
+var roomfound=false;
+
 var k={'id':'','name':'room00','userCount':0, 'nowplay':{'link':'','time':Date.now(),'curtime':0} , 'users':[] , 'playing':false };
 
 var rooms={
@@ -67,10 +69,51 @@ io.on('connection', function(client){
 		for(var i=0;i<rooms.private.length;i++){
 			if(rooms.private[i].id==data){
 				console.log('Room Found in the database ');
-				client.emit
+				client.emit("roompagenav",rooms.private[i]);
+				rooms.private[i].users.push(client.id);
+				console.log(rooms.private[i].playing);
+				if(rooms.private[i].playing==true){
+					var t=(Date.now()-rooms.private[i].nowplay.time)/1000;
+					t=parseInt(t)+1;
+					rooms.private[i].nowplay.curtime=t;
+					for(var j=0;j<rooms.private[i].users.length;j++){
+						io.to(rooms.private[i].users[j]).emit('playnow',rooms.private[i].nowplay);
+					}
+				}
+				break;
 			}
 		}
 	});
+
+	client.on('dataemit', function(data){
+		console.log(data);
+		for(var i=0;i<rooms.private.length;i++){
+			if(rooms.private[i].id==data.roomid){
+				console.log('Room Found in the database ');
+				rooms.private[i].nowplay.link=data.link;
+		  		rooms.private[i].nowplay.time=data.time;
+		  		console.log("currently playing video in the room "+rooms.private[i].name+"is  :  "+rooms.private[i].nowplay.link);
+		  		rooms.private[i].playing=true;
+				break;
+			}
+		}
+  	});
+
+  	client.on('sync', function(data){
+  		for(var i=0;i<rooms.private.length;i++){
+			if(rooms.private[i].id==data){
+				console.log('Syncing the room');
+				var t=(Date.now()-rooms.private[i].nowplay.time)/1000;
+				t=parseInt(t)+1;
+				rooms.private[i].nowplay.curtime=t;
+				for(var j=0;j<rooms.private[i].users.length;j++){
+					io.to(rooms.private[i].users[j]).emit('playnow',rooms.private[i].nowplay);
+				}
+				break;
+			}
+		}
+  	});
+
 
 	/*if(playing==true){
 		var t=(Date.now()-nowplay.time)/1000;
