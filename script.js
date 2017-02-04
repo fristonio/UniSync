@@ -6,7 +6,7 @@ window.onload=function(){
 	});
 
 
-	document.getElementsByTagName('form')[0].onsubmit=function(){
+	/*document.getElementsByTagName('form')[0].onsubmit=function(){
 		var link=document.getElementsByTagName('input')[0].value ;
 		link=link.replace('/watch?v=','/embed/');
 		link=link+"?autoplay=1";
@@ -26,8 +26,7 @@ window.onload=function(){
 	});
 	document.getElementsByClassName('sync-btn')[0].onclick=function(){
 		socket.emit('sync');
-	}
-
+	}*/
 	document.getElementsByClassName('join')[0].onclick=function(){
 		var jr=document.getElementsByClassName('join-room')[0];
 		jr.style.zIndex="5";
@@ -38,5 +37,20 @@ window.onload=function(){
 		this.parentNode.style.display="none";
 	};
 
+	document.getElementsByClassName('privateroom')[0].onclick=function(){
+		socket.emit('room-search');
+	}
+	socket.on('roomdata',function(data){
+		document.getElementById('private-room').style.display="flex";
+		console.log(data);
+		for(var i=0;i<data.length;i++){
+			$("#private-room").append("<h3 id='"+data[i].rid+"'>"+data[i].rname+"</h3>");
+		}
+	});
+
+	$('#private-room').on('click','h3',function(){
+		console.log(this.id);
+		socket.emit('room-select',this.id);
+	});
 
 };
