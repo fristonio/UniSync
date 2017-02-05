@@ -48,6 +48,8 @@ window.onload=function(){
 		}
 	});
 
+
+//private room selection 
 	$('#private-room').on('click','h3',function(){
 		console.log(this.id);
 		socket.emit('room-select',this.id);
@@ -80,4 +82,18 @@ window.onload=function(){
 	document.getElementsByClassName('sync-btn')[0].onclick=function(){
 		socket.emit('sync',roomdata.id);
 	}
+
+//create private room on the server
+	$('.create').click(function(){
+		$('#createroom').css('display','flex');
+		var roomname=prompt("Enter your room name  :  ");
+		if(roomname!=null){
+			socket.emit('create-room',roomname);
+		}
+	});
+
+	socket.on('room-created',function(data){
+		alert('Congo your room has been created _/\ _ with name  : '+data);
+		$('#createroom').css('display','none');
+	});
 };

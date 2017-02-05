@@ -1,16 +1,18 @@
 var http=require('http');
-var event=require('events');
+var events=require('events');
 var express=require('express');
 var fs=require('fs');
+var eventEmitter = new events.EventEmitter();
 //var bodyParser = require('body-parser');//will be required if we do form data send receiving through express
- //wheather a video is being played or not
 var userCount=0;  //total no of user connected to the room at present
 var users=[]; //total users connected to the server at the moment 
 //var nowplay={'link':'','time':Date.now(),'curtime':0}; //data of the video being played at the current moment
 var app=express();
 var roomfound=false;
+var privaterooms=1;
 
-var k={'id':'','name':'room00','userCount':0, 'nowplay':{'link':'','time':Date.now(),'curtime':0} , 'users':[] , 'playing':false };
+
+var k={'id':'','name':'','userCount':0, 'nowplay':{'link':'','time':Date.now(),'curtime':0} , 'users':[] , 'playing':false };
 
 var rooms={
 	'public':{'name':'Public','userCount':0, 'nowplay':{'link':'','time':Date.now(),'curtime':0} , 'users':[] , 'playing':false },
@@ -46,20 +48,28 @@ app.get('/script.js', function(req, res) {
 			res.end();
 });*/
 
+function getrooms(){
+	var roomlist=[];
+	for(var i=0;i<rooms.private.length;i++){
+			var g={'rname':rooms.private[i].name,'rid':rooms.private[i].id};
+			roomlist.push(g);
+		}
+	return roomlist;
+}
 
 var io = require('socket.io')(server);
 io.on('connection', function(client){
 	users.push(client.id);
 	userCount+=1;
 	console.log('No of user connected to the server are   :  '+userCount);
-	var roomlist=[];
-	for(var i=0;i<rooms.private.length;i++){
+	/*for(var i=0;i<rooms.private.length;i++){
 			var g={'rname':rooms.private[i].name,'rid':rooms.private[i].id};
 			roomlist.push(g);
-		}
+		}*/
 
 
 	client.on('room-search',function(){
+		var roomlist=getrooms();
 		client.emit('roomdata',roomlist);
 		console.log(roomlist);
 	});
@@ -114,31 +124,16 @@ io.on('connection', function(client){
 		}
   	});
 
-
-	/*if(playing==true){
-		var t=(Date.now()-nowplay.time)/1000;
-		t=parseInt(t)+1;
-		nowplay.curtime=t;
-		io.emit('playnow',nowplay);
-	}
-
-  	client.on('dataemit', function(data){
-  		//if (playing==false) {
-  		console.log('Link given by the user is  :  '+data.link);
-  		//console.log('Unique timestamp :  '+data.time);
-  		//console.log(data);
-  		nowplay.link=data.link;
-  		nowplay.time=data.time;
-  		console.log("currently playing video is  :  "+nowplay.link);
-  		playing=true; //}
+  	client.on('create-room',function(data){
+  		k.id=privaterooms;
+  		privaterooms+=1;
+  		k.name=data;
+  		k.nowplay.time=Date.now();
+  		rooms.private.push(k);
+  		console.log("A room has been created and the room details are : ");
+  		console.log(rooms.private);
+  		client.emit('room-created',data);
   	});
-
-  	client.on('sync', function(){
-  		var t=(Date.now()-nowplay.time)/1000;
-		t=parseInt(t)+1;
-		nowplay.curtime=t;
-		io.emit('playnow',nowplay);
-  	});*/
 
   	client.on('disconnect', function(){
   		console.log('user disconnected  :  '+client.id);
