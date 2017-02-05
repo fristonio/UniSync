@@ -103,9 +103,16 @@ $(document).ready(function(){
 		$('.white').css('background-color','#000');
 		$('.black>button,.black>h4,.white>button,main h1').hide(0);
 		$('.black').animate({'width':'75vw'},500);
+		$('#roompage').fadeIn(200);
 	});
 
-
+	$('#close').click(function(){
+		$('.black').css('background-color','#000');
+		$('.white').css('background-color','#fff');
+		$('.black>button,.black>h4,.white>button,main h1').fadeIn();
+		$('.black').animate({'width':'50vw'},500);
+		$('#roompage').hide(0);
+	})
 
 
 

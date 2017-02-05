@@ -3,6 +3,7 @@
 	padding: 0;
 }
 body{
+	overflow: hidden;
 }
 main{
 	width: 200vw;
@@ -178,6 +179,52 @@ h1{
 */
 #roompage{
 	display: none;
+	width: 75vw;
+	height: 100vh;
+	color: #000;
+	font-family: 'Roboto',sans-serif;
+}
+#roompage>h2{
+	display: inline-block;
+	padding:0 0 5px 5px;
+}
+#close{
+	float: right;
+	margin: 5px 5px;
+	width: 50px;
+	height: 50px;
+}
+#roompage>hr{
+	border: 1px solid #eee;
+}
+.formdiv{
+	display: flex;
+	justify-content: center;
+	font-size: 20px;
+	padding: 30px 5px;
+}
+.yout-link{
+	padding: 0 10px;
+}
+
+#yout-sub{
+	background: transparent;
+	border: 2px solid #000;
+	font-size: 18px;
+	padding: 5px;
+	margin-left: 20px;
+}
+.sync{
+	display: flex;
+	justify-content:center;
+}
+
+.sync-btn{
+	background: transparent;
+	border: 2px solid #000;
+	padding: 5px 10px;
+	letter-spacing: 1px;
+	font-size: 20px;
 }
 /*
 #createroom{
