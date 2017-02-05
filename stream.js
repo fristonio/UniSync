@@ -50,13 +50,13 @@ app.get('/', function(req, res) {
            // Send out the index.html
            res.sendFile(__dirname+'/index.html');
        });
-app.get('/style.css', function(req, res) {
+app.get('/css/style.css', function(req, res) {
            // Send out the index.html
-           res.sendFile(__dirname+'/style.css');
+           res.sendFile(__dirname+'/css/style.css');
        });
-app.get('/script.js', function(req, res) {
+app.get('/scripts/script.js', function(req, res) {
            // Send out the index.html
-           res.sendFile(__dirname+'/script.js');
+           res.sendFile(__dirname+'/scripts/script.js');
        });
 
 
@@ -191,5 +191,5 @@ io.on('connection', function(client){
 });
 
 
-server.listen(3000);
-console.log('Server running at 3000 port in the localhost');
+server.listen(3001);
+console.log('Server running at 3001 port in the localhost');

@@ -1,0 +1,192 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+}
+main{
+	width: 200vw;
+}
+main>div{
+	display: flex;
+	align-items: center;
+	width: 50vw;
+	height: 100vh;
+	float: left;
+	transition: background 0.3s ease;
+}
+.black>button,.white>button{
+	display: block;
+	position: relative;
+	background: transparent;
+	padding: 10px 30px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
+	letter-spacing: 1px;
+	margin: 0 auto;
+	transition: all 0.3s ease;
+}
+.create{
+	border: 2px solid #fff;
+	color: #fff;
+}
+.join{
+	border: 2px solid #000;
+	color: #000;
+}
+.create:hover{
+	background:#fff;
+	color: #000;
+}
+.join:hover{
+	background:#000;
+	color: #fff;
+}
+main h1{
+	position: absolute;
+	top: 3vw;
+	font-size: 40px;
+	font-family: 'Roboto', sans-serif;
+	letter-spacing: 1px;
+}
+.black h1{
+	color: #fff;
+	right: 50vw;
+}
+.white h1{
+	color: #000;
+	left: 50vw;
+}
+main h4{
+	position: relative;
+	color: #aaa;
+	letter-spacing: 1px;
+}
+.black{
+	background: #000;
+}
+.white{
+	background: #fff;
+}
+.form-pri{
+	display: none;
+	position: relative;
+	left: -23vw;
+	align-items: center;
+	justify-content: center;
+	width: 30vw;
+	height: 200px;
+	border: 2px solid #fff;
+}
+.form-pri label{
+	display: flex;
+	justify-content: center;
+	color: #fff;
+	letter-spacing: 2px;
+	font-weight: 100;
+	font-family: 'Roboto',sans-serif;
+}
+.form-pri td{
+	padding: 10px;
+}
+.form-pri input{
+	color: #000;
+	font-family: 'Roboto',sans-serif;
+}
+#pri-sub{
+	background: transparent;
+	padding: 5px 15px;
+	color: #fff;
+	font-family: 'Roboto',sans-serif;
+	border:2px solid #fff;
+	margin-left: 130px;
+}
+/*
+h1{
+	text-align: center;
+	font-weight: 800;
+}
+.formdiv{
+	display: flex;
+	justify-content: center;
+}
+.formdiv form{
+	text-align: center;
+}
+.videodiv{
+	display: flex;
+	justify-content: center;
+}
+.sync{
+	display: flex;
+	justify-content: center;
+	padding:30px 0;
+}
+#room-select{
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	position: absolute;
+}
+#room-select div{
+	display: flex;
+	flex-wrap: wrap;
+	width: 100vw;
+}
+.rooms{
+	flex:1 1 50%;
+	min-width: 400px;
+	display: flex;
+	justify-content: center;
+}
+.join-room{
+	position: absolute;
+	background: rgba(0,0,0,0.7);
+	height: 100vh;
+	width: 100vw;
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.join-room button{
+	margin: 20px 0;
+}
+.close{
+	cursor: pointer;
+	position: absolute;
+	right: 10px;
+	top: 10px
+}
+#private-room{
+	height: 100vh;
+	width: 100vw;
+	background: rgba(0,0,0,0.9);
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+	flex-direction: column;
+}
+
+#private-room h3{
+	color: white;
+	cursor: pointer;
+}
+*/
+#roompage{
+	display: none;
+}
+/*
+#createroom{
+	height: 100vh;
+	width: 100vw;
+	background: rgba(0,0,0,0.95);
+	display: none;
+	position: absolute;
+	justify-content: center;
+	align-items: center;
+}
+*/
