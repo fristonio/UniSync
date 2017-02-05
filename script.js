@@ -1,5 +1,12 @@
 window.onload=function(){
+
+	
 	var socket = io();
+	socket.on('enterUser',function(){
+		
+	});
+	
+
 	console.log(socket.id);
 	socket.on('connect', function(){
 	  console.log(socket.id);
@@ -30,10 +37,24 @@ window.onload=function(){
 
 
 //private room selection 
+
 	$('#private-room').on('click','h3',function(){
+		var name=prompt('Enter a Username to chat');
+		console.log(name);
+		socket.emit('setUsername',{'prid':this.id,'name':name});
+		socket.on('setUsernameSuc',function(){
+		alert('username successfully created');
+			});
+		socket.on('userExists',function(){
+		var name=prompt('Username already Exits. Enter A new one');
+		socket.emit('setUsername',{'prid':this.id,'name':name});
+		});
 		console.log(this.id);
 		socket.emit('room-select',this.id);
 	});
+
+	$('')
+
 
 	socket.on('roompagenav',function(data){
 		$('#navpage').css('display','none');
@@ -87,4 +108,9 @@ window.onload=function(){
 		roomdata=data;
 		console.log(roomdata.id);
 	});
+
+	//for chat
+	
+
+
 };

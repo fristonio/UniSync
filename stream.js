@@ -12,6 +12,13 @@ var roomfound=false;
 var privaterooms=1;
 
 
+//variables for chat.
+var userdata=[{
+	'uid':'0',
+	'uname':'admin'
+}];
+
+
 var k={	'id':'',
 		'name':'',
 		'userCount':0, 
@@ -25,7 +32,7 @@ var rooms={
 				'name':'Public',
 				'userCount':0, 
 				'nowplay':{'link':'','time':Date.now(),'curtime':0} , 
-				'users':[] , 
+				'users':[{'uid':'','uname':''}] , 
 				'playing':false 
 			},
 
@@ -33,8 +40,9 @@ var rooms={
 				'name':'room00',
 				'userCount':0, 
 				'nowplay':{'link':'','time':Date.now(),'curtime':0} , 
-				'users':[] , 
-				'playing':false }]
+				'users':[{'uid':'','uname':''}] , 
+				'playing':false
+				 }]
 };
 //app.use(bodyParser.json());// to work with the get and post request form data with the help of the express library in nodejs
 //app.use(bodyParser.urlencoded({ extended: true }));
@@ -79,6 +87,50 @@ io.on('connection', function(client){
 	users.push(client.id);
 	userCount+=1;
 	console.log('No of user connected to the server are   :  '+userCount);
+	client.emit('enterUser');
+
+
+	//for the chat 
+		//checking for existence of username
+		client.on('setUsername',function(data){
+			console.log(data);
+			var ctr=0;
+			var proomno;
+			console.log('set username in progress');
+			for(var i=0;i<rooms.private.length;i++)
+			{	console.log(rooms.private[i].id);
+				if(rooms.private[i].id==data.prid)
+				{
+					proomno=i;
+					for(var j=0;j<rooms.private[i].users.length;j++)
+					{
+						if(rooms.private[i].users[j].uname==data.name)
+							{ctr=1;break}
+					}
+					if(ctr==1) break;
+				
+				}
+			}	
+				console.log(ctr);
+
+			if(ctr==1)
+			{
+				console.log('user name already exists');
+				client.emit('userExists',function(){});
+			}
+			else
+				{
+					for(var i=0;i<rooms.private.length;i++)
+					{
+						if(rooms.private[i].id==data.prid)
+						{
+						rooms.private[i].users.push({'uid':client.id,'uname':data.name});	
+						client.emit('setUsernameSuc');
+						}
+					}
+				}
+
+		});
 
 
 	client.on('room-search',function(){
@@ -106,7 +158,10 @@ io.on('connection', function(client){
 				break;
 			}
 		}
+
 	});
+	
+
 
 	client.on('dataemit', function(data){
 		console.log(data);
