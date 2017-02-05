@@ -12,12 +12,29 @@ var roomfound=false;
 var privaterooms=1;
 
 
-var k={'id':'','name':'','userCount':0, 'nowplay':{'link':'','time':Date.now(),'curtime':0} , 'users':[] , 'playing':false };
+var k={	'id':'',
+		'name':'',
+		'userCount':0, 
+		'nowplay':{'link':'','time':Date.now(),'curtime':0} , 
+		'users':[] , 
+		'playing':false 
+	};
 
 var rooms={
-	'public':{'name':'Public','userCount':0, 'nowplay':{'link':'','time':Date.now(),'curtime':0} , 'users':[] , 'playing':false },
+	'public':{	'id':'public',
+				'name':'Public',
+				'userCount':0, 
+				'nowplay':{'link':'','time':Date.now(),'curtime':0} , 
+				'users':[] , 
+				'playing':false 
+			},
 
-	'private':[{'id':'00','name':'room00','userCount':0, 'nowplay':{'link':'','time':Date.now(),'curtime':0} , 'users':[] , 'playing':false }]
+	'private':[{'id':'00',
+				'name':'room00',
+				'userCount':0, 
+				'nowplay':{'link':'','time':Date.now(),'curtime':0} , 
+				'users':[] , 
+				'playing':false }]
 };
 //app.use(bodyParser.json());// to work with the get and post request form data with the help of the express library in nodejs
 //app.use(bodyParser.urlencoded({ extended: true }));
@@ -62,10 +79,6 @@ io.on('connection', function(client){
 	users.push(client.id);
 	userCount+=1;
 	console.log('No of user connected to the server are   :  '+userCount);
-	/*for(var i=0;i<rooms.private.length;i++){
-			var g={'rname':rooms.private[i].name,'rid':rooms.private[i].id};
-			roomlist.push(g);
-		}*/
 
 
 	client.on('room-search',function(){
@@ -79,8 +92,8 @@ io.on('connection', function(client){
 		for(var i=0;i<rooms.private.length;i++){
 			if(rooms.private[i].id==data){
 				console.log('Room Found in the database ');
-				client.emit("roompagenav",rooms.private[i]);
 				rooms.private[i].users.push(client.id);
+				client.emit("roompagenav",rooms.private[i]);
 				console.log(rooms.private[i].playing);
 				if(rooms.private[i].playing==true){
 					var t=(Date.now()-rooms.private[i].nowplay.time)/1000;
@@ -97,29 +110,48 @@ io.on('connection', function(client){
 
 	client.on('dataemit', function(data){
 		console.log(data);
-		for(var i=0;i<rooms.private.length;i++){
-			if(rooms.private[i].id==data.roomid){
-				console.log('Room Found in the database ');
-				rooms.private[i].nowplay.link=data.link;
-		  		rooms.private[i].nowplay.time=data.time;
-		  		console.log("currently playing video in the room "+rooms.private[i].name+"is  :  "+rooms.private[i].nowplay.link);
-		  		rooms.private[i].playing=true;
-				break;
+		if (data.roomid=='public') {
+			rooms.public.nowplay.link=data.link;
+			rooms.public.nowplay.time=data.time;
+			console.log("Video is being played in public :P");
+			rooms.public.playing=true;
+		}
+		else{
+			for(var i=0;i<rooms.private.length;i++){
+				if(rooms.private[i].id==data.roomid){
+					console.log('Room Found in the database ');
+					rooms.private[i].nowplay.link=data.link;
+			  		rooms.private[i].nowplay.time=data.time;
+			  		console.log("currently playing video in the room "+rooms.private[i].name+"is  :  "+rooms.private[i].nowplay.link);
+			  		rooms.private[i].playing=true;
+					break;
+				}
 			}
 		}
   	});
 
   	client.on('sync', function(data){
-  		for(var i=0;i<rooms.private.length;i++){
-			if(rooms.private[i].id==data){
-				console.log('Syncing the room');
-				var t=(Date.now()-rooms.private[i].nowplay.time)/1000;
-				t=parseInt(t)+1;
-				rooms.private[i].nowplay.curtime=t;
-				for(var j=0;j<rooms.private[i].users.length;j++){
-					io.to(rooms.private[i].users[j]).emit('playnow',rooms.private[i].nowplay);
+  		if(data=='public'){
+  			console.log('Syncing the public room');
+  			var t=(Date.now()-rooms.public.nowplay.time)/1000;
+			t=parseInt(t)+1;
+			rooms.public.nowplay.curtime=t;
+			for(var j=0;j<rooms.public.users.length;j++){
+				io.to(rooms.public.users[j]).emit('playnow',rooms.public.nowplay);
+			}
+  		}
+  		else{
+	  		for(var i=0;i<rooms.private.length;i++){
+				if(rooms.private[i].id==data){
+					console.log('Syncing the room');
+					var t=(Date.now()-rooms.private[i].nowplay.time)/1000;
+					t=parseInt(t)+1;
+					rooms.private[i].nowplay.curtime=t;
+					for(var j=0;j<rooms.private[i].users.length;j++){
+						io.to(rooms.private[i].users[j]).emit('playnow',rooms.private[i].nowplay);
+					}
+					break;
 				}
-				break;
 			}
 		}
   	});
@@ -133,6 +165,19 @@ io.on('connection', function(client){
   		console.log("A room has been created and the room details are : ");
   		console.log(rooms.private);
   		client.emit('room-created',data);
+  	});
+
+  	client.on('joinpublic',function(){
+  		rooms.public.users.push(client.id);
+  		client.emit('publicdata',rooms.public);
+  		if(rooms.public.playing==true){
+  			var t=(Date.now()-rooms.public.nowplay.time)/1000;
+			t=parseInt(t)+1;
+			rooms.public.nowplay.curtime=t;
+			for(var j=0;j<rooms.public.users.length;j++){
+				io.to(rooms.public.users[j]).emit('playnow',rooms.public.nowplay);
+			}
+  		}
   	});
 
   	client.on('disconnect', function(){
