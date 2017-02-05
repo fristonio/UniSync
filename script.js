@@ -51,9 +51,35 @@ window.onload=function(){
 		});
 		console.log(this.id);
 		socket.emit('room-select',this.id);
+
 	});
 
-	$('')
+	socket.on('displayCurrUser',function(data){
+
+		console.log('going to display user');
+		$('.curruser').text(data.name);
+	});
+
+	$('#msgsubmit').click(function(){
+		console.log('processing the input');
+		var curruser=document.getElementsByClassName("curruser")[0].innerHTML;
+		var msg=document.getElementById('message').value;
+		console.log(curruser+' '+msg+' '+roomdata.id);
+
+		socket.emit('displayMessage',{'curruser':curruser,'msg':msg,'roomid':roomdata.id});
+		//return false;
+	});
+		
+	
+
+	socket.on('domMan',function(data){
+		console.log(data);
+		added='<span style="font-weight:800">'+data.curruser+' : </span>'+'<span class="message">'+data.msg+'</span><br>';
+		document.getElementById("premsg").innerHTML+=added;
+	});
+
+
+
 
 
 	socket.on('roompagenav',function(data){

@@ -130,6 +130,23 @@ io.on('connection', function(client){
 					}
 				}
 
+			client.emit('displayCurrUser',{'prid':client.id,'name':data.name});
+
+		});
+
+		client.on('displayMessage',function(data){
+			for(var i=0;i<rooms.private.length;i++)
+			{
+				if(data.roomid==rooms.private[i].id)
+				{
+					for(var j=0;j<rooms.private[i].users.length;j++)
+					{
+						console.log("sending data for room manipulation");
+						io.to(rooms.private[i].users[j].uid).emit('domMan',{'curruser':data.curruser,'msg':data.msg,'roomid':data.roomid});
+					}
+				}
+			}
+
 		});
 
 
@@ -144,7 +161,7 @@ io.on('connection', function(client){
 		for(var i=0;i<rooms.private.length;i++){
 			if(rooms.private[i].id==data){
 				console.log('Room Found in the database ');
-				rooms.private[i].users.push(client.id);
+				//rooms.private[i].users.push(client.id);
 				client.emit("roompagenav",rooms.private[i]);
 				console.log(rooms.private[i].playing);
 				if(rooms.private[i].playing==true){
@@ -152,7 +169,7 @@ io.on('connection', function(client){
 					t=parseInt(t)+1;
 					rooms.private[i].nowplay.curtime=t;
 					for(var j=0;j<rooms.private[i].users.length;j++){
-						io.to(rooms.private[i].users[j]).emit('playnow',rooms.private[i].nowplay);
+						io.to(rooms.private[i].users[j].uid).emit('playnow',rooms.private[i].nowplay);
 					}
 				}
 				break;
@@ -192,7 +209,7 @@ io.on('connection', function(client){
 			t=parseInt(t)+1;
 			rooms.public.nowplay.curtime=t;
 			for(var j=0;j<rooms.public.users.length;j++){
-				io.to(rooms.public.users[j]).emit('playnow',rooms.public.nowplay);
+				io.to(rooms.public.users[j].uid).emit('playnow',rooms.public.nowplay);
 			}
   		}
   		else{
@@ -203,7 +220,7 @@ io.on('connection', function(client){
 					t=parseInt(t)+1;
 					rooms.private[i].nowplay.curtime=t;
 					for(var j=0;j<rooms.private[i].users.length;j++){
-						io.to(rooms.private[i].users[j]).emit('playnow',rooms.private[i].nowplay);
+						io.to(rooms.private[i].users[j].uid).emit('playnow',rooms.private[i].nowplay);
 					}
 					break;
 				}
