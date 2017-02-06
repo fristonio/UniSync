@@ -39,22 +39,25 @@ window.onload=function(){
 //private room selection 
 
 	$('#private-room').on('click','h3',function(){
-		var name=prompt('Enter a Username to chat');
-		console.log(name);
-		socket.emit('setUsername',{'prid':this.id,'name':name});
-		socket.on('setUsernameSuc',function(){
-		alert('username successfully created');
-			});
-		socket.on('userExists',function(){
-		var name=prompt('Username already Exits. Enter A new one');
-		socket.emit('setUsername',{'prid':this.id,'name':name});
-		});
-		console.log(this.id);
-		$('#msgsubmitpublic').css({'display':'none'});
-
-		socket.emit('room-select',this.id);
-
+		var password=prompt("Enter the password for the room : ");
+		socket.emit('pass_check',{'pass':password,'id':this.id});
 	});
+
+	socket.on('pass_verified',function(){
+			var name=prompt('Enter a Username to chat');
+			console.log(name);
+			socket.emit('setUsername',{'prid':this.id,'name':name});
+			socket.on('setUsernameSuc',function(){
+			alert('username successfully created');
+				});
+			socket.on('userExists',function(){
+			var name=prompt('Username already Exits. Enter A new one');
+			socket.emit('setUsername',{'prid':this.id,'name':name});
+			});
+			console.log(this.id);
+			$('#msgsubmitpublic').css({'display':'none'});
+			socket.emit('room-select',this.id);
+		});
 
 	socket.on('displayCurrUser',function(data){
 
@@ -154,6 +157,7 @@ window.onload=function(){
 
 
 	});
+	
 	socket.on('publicdata',function(data){
 		$('#navpage').css('display','none');
 		$('#roompage').css('display','block');

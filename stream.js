@@ -18,15 +18,6 @@ var userdata=[{
 	'uname':'admin'
 }];
 
-
-var k={	'id':'',
-		'name':'',
-		'userCount':0, 
-		'nowplay':{'link':'','time':Date.now(),'curtime':0} , 
-		'users':[] , 
-		'playing':false 
-	};
-
 var rooms={
 	'public':{	'id':'public',
 				'name':'Public',
@@ -41,7 +32,8 @@ var rooms={
 				'userCount':0, 
 				'nowplay':{'link':'','time':Date.now(),'curtime':0} , 
 				'users':[{'uid':'','uname':''}] , 
-				'playing':false
+				'playing':false,
+				'password':'admin@123'
 				 }]
 };
 //app.use(bodyParser.json());// to work with the get and post request form data with the help of the express library in nodejs
@@ -86,8 +78,8 @@ var io = require('socket.io')(server);
 io.on('connection', function(client){
 	users.push(client.id);
 	userCount+=1;
-	console.log('No of user connected to the server are   :  '+userCount);
-	client.emit('enterUser');
+	console.log('A new user connected to the server ..... No of user connected to the server are   :  '+userCount);
+	//client.emit('enterUser');
 
 
 	//for the chat 
@@ -154,7 +146,7 @@ io.on('connection', function(client){
 			console.log(data);
 			var ctr=0;
 			var proomno;
-			console.log('set username in progress');
+			console.log('Set username in progress');
 			
 					for(var j=0;j<rooms.public.users.length;j++)
 					{
@@ -203,16 +195,18 @@ io.on('connection', function(client){
 	client.on('room-search',function(){
 		var roomlist=getrooms();
 		client.emit('roomdata',roomlist);
-		console.log(roomlist);
+		console.log("Rooms list in private  : "+roomlist);
 	});
 
 	client.on('room-select',function(data){
-		console.log(data);
+		console.log("id for the room being selected by the user is   : "+data.id);
 		for(var i=0;i<rooms.private.length;i++){
-			if(rooms.private[i].id==data){
+			if(rooms.private[i].id==data.id){
 				console.log('Room Found in the database ');
 				//rooms.private[i].users.push(client.id);
-				client.emit("roompagenav",rooms.private[i]);
+				var room_data=rooms.private[i];
+				delete room_data.password;
+				client.emit("roompagenav",room_data);
 				console.log(rooms.private[i].playing);
 				if(rooms.private[i].playing==true){
 					var t=(Date.now()-rooms.private[i].nowplay.time)/1000;
@@ -226,6 +220,15 @@ io.on('connection', function(client){
 			}
 		}
 
+	});
+
+	client.on('pass_check',function(data){
+		for(var i=0;i<rooms.private.length;i++){
+			if(rooms.private[i].id==data.id){
+				if(data.pass==rooms.private[i].password){
+					client.emit('pass_verified');
+				}
+			}}
 	});
 	
 
@@ -279,13 +282,17 @@ io.on('connection', function(client){
   	});
 
   	client.on('create-room',function(data){
-  		k.id=privaterooms;
+  		console.log("Create room data "+data)
+  		rooms.private.push({'id':privaterooms,
+				'name':data.rname,
+				'userCount':0, 
+				'nowplay':{'link':'','time':Date.now(),'curtime':0} , 
+				'users':[] , 
+				'playing':false,
+				'password':data.pass});
   		privaterooms+=1;
-  		k.name=data;
-  		k.nowplay.time=Date.now();
-  		rooms.private.push(k);
   		console.log("A room has been created and the room details are : ");
-  		console.log(rooms.private);
+  		console.log(rooms.private[privaterooms-1]);
   		client.emit('room-created',data);
   	});
 
