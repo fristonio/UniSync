@@ -50,6 +50,8 @@ window.onload=function(){
 		socket.emit('setUsername',{'prid':this.id,'name':name});
 		});
 		console.log(this.id);
+		$('#msgsubmitpublic').css({'display':'none'});
+
 		socket.emit('room-select',this.id);
 
 	});
@@ -60,13 +62,22 @@ window.onload=function(){
 		$('.curruser').text(data.name);
 	});
 
-	$('#msgsubmit').click(function(){
+	$('#msgsubmitprivate').click(function(){
 		console.log('processing the input');
 		var curruser=document.getElementsByClassName("curruser")[0].innerHTML;
 		var msg=document.getElementById('message').value;
 		console.log(curruser+' '+msg+' '+roomdata.id);
 
-		socket.emit('displayMessage',{'curruser':curruser,'msg':msg,'roomid':roomdata.id});
+		socket.emit('displayMessagePri',{'curruser':curruser,'msg':msg,'roomid':roomdata.id});
+		//return false;
+	});
+	$('#msgsubmitpublic').click(function(){
+		console.log('processing the input');
+		var curruser=document.getElementsByClassName("curruser")[0].innerHTML;
+		var msg=document.getElementById('message').value;
+		console.log(curruser+' '+msg+' '+roomdata.id);
+
+		socket.emit('displayMessagePub',{'curruser':curruser,'msg':msg,'roomid':roomdata.id});
 		//return false;
 	});
 		
@@ -126,7 +137,22 @@ window.onload=function(){
 
 //public room joining
 	$('.publicroom').click(function(){
-		socket.emit('joinpublic');
+		var name=prompt('Enter a Username to chat');
+		console.log(name);
+		socket.emit('setUsernamePub',{'prid':this.id,'name':name});
+		socket.on('setUsernameSuc',function(){
+		alert('username successfully created');
+			});
+		socket.on('userExistsPub',function(){
+		var name=prompt('Username already Exits. Enter A new one');
+		socket.emit('setUsernamePub',{'prid':this.id,'name':name});
+		});
+		$('#msgsubmitprivate').css({'display':'none'});
+		socket.emit('joinpublic',name);
+
+
+
+
 	});
 	socket.on('publicdata',function(data){
 		$('#navpage').css('display','none');

@@ -134,7 +134,7 @@ io.on('connection', function(client){
 
 		});
 
-		client.on('displayMessage',function(data){
+		client.on('displayMessagePri',function(data){
 			for(var i=0;i<rooms.private.length;i++)
 			{
 				if(data.roomid==rooms.private[i].id)
@@ -148,6 +148,56 @@ io.on('connection', function(client){
 			}
 
 		});
+
+		// chat for public room
+		client.on('setUsernamePub',function(data){
+			console.log(data);
+			var ctr=0;
+			var proomno;
+			console.log('set username in progress');
+			
+					for(var j=0;j<rooms.public.users.length;j++)
+					{
+						if(rooms.public.users[j].uname==data.name)
+							{ctr=1;break}
+					}
+					
+					
+				console.log(ctr);
+
+			if(ctr==1)
+			{
+				console.log('user name already exists');
+				client.emit('userExistsPub',function(){});
+			}
+			else
+				{
+					
+						rooms.public.users.push({'uid':client.id,'uname':data.name});	
+						client.emit('setUsernameSuc');
+						
+				}
+
+			client.emit('displayCurrUser',{'prid':client.id,'name':data.name});
+
+		});
+
+		client.on('displayMessagePub',function(data){
+
+			
+					for(var j=0;j<rooms.public.users.length;j++)
+					{
+						console.log("sending data for room manipulation");
+						io.to(rooms.public.users[j].uid).emit('domMan',{'curruser':data.curruser,'msg':data.msg,'roomid':data.roomid});
+					}
+				
+			
+
+		});
+
+		//end chat for public room
+
+
 
 
 	client.on('room-search',function(){
@@ -239,8 +289,8 @@ io.on('connection', function(client){
   		client.emit('room-created',data);
   	});
 
-  	client.on('joinpublic',function(){
-  		rooms.public.users.push(client.id);
+  	client.on('joinpublic',function(name){
+  		//rooms.public.users.push({'uid':client.id,'uname':name});
   		client.emit('publicdata',rooms.public);
   		if(rooms.public.playing==true){
   			var t=(Date.now()-rooms.public.nowplay.time)/1000;
