@@ -70,12 +70,26 @@ main h4{
 .white{
 	background: #fff;
 }
-.form-pri{
+.createPri{
 	display: none;
 	position: relative;
-	left: -23vw;
+	left: -75vw;
+	width: 75vw;
+	height: 100vh;
 	align-items: center;
 	justify-content: center;
+}
+.close-pri{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 30px !important;
+	height: 30px !important;
+}
+.form-pri{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 30vw;
 	height: 200px;
 	border: 2px solid #fff;
@@ -102,6 +116,12 @@ main h4{
 	font-family: 'Roboto',sans-serif;
 	border:2px solid #fff;
 	margin-left: 130px;
+}
+#joinPri{
+	display: none;
+	position: relative;
+	width: 75vw;
+	height: 100vh;
 }
 /*
 h1{
@@ -189,12 +209,13 @@ h1{
 	display: inline-block;
 	padding:0 0 5px 5px;
 }
-#close-pub{
+.close{
 	float: right;
 	margin: 5px 5px;
 	width: 50px;
 	height: 50px;
 	cursor: pointer;
+	transition: all 0.3s ease;
 }
 #roompage>hr{
 	border: 1px solid #eee;

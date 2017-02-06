@@ -17,11 +17,13 @@ window.onload=function(){
 		this.parentNode.style.display="none";
 	};
 
-	document.getElementsByClassName('privateroom')[0].onclick=function(){
+	/*document.getElementsByClassName('privateroom')[0].onclick=function(){
+	}*/
+	$('.joinPri').click(function(){
 		socket.emit('room-search');
-	}
+	});
 	socket.on('roomdata',function(data){
-		document.getElementById('private-room').style.display="flex";
+		$('#joinPri').show(0);//document.getElementById('private-room').style.display="flex";
 		console.log(data);
 		for(var i=0;i<data.length;i++){
 			$("#private-room").append("<h3 id='"+data[i].rid+"'>"+data[i].rname+"</h3>");
@@ -74,7 +76,7 @@ window.onload=function(){
 
 	socket.on('room-created',function(data){
 		alert('Congo your room has been created _/\ _ with name  : '+data);
-		$('#createroom').css('display','none');
+		$('#0createroom').css('display','none');
 	});
 
 //public room joining
@@ -91,12 +93,17 @@ window.onload=function(){
 
 $(document).ready(function(){
 
-	$('#btn-pri-c,#btn-pri-j').click(function(){
+	$('#btn-pri-c').click(function(){
 		$('.black>button,.black>h4,.white>button,main h1').hide(0);
 		$('.black').animate({'width':'75vw'},500);
-		$('.form-pri').css('display','flex').animate({'left':'20vw'},500);
+		$('.createPri').css('display','flex').animate({'left':'0'},500);
 	});	
 
+	$('#btn-pri-j').click(function(){
+		$('.black>button,.black>h4,.white>button,main h1').hide(0);
+		$('.black').animate({'width':'75vw'},500);
+		$('#joinPri').fadeIn();		
+	});
 
 	$('#btn-pub-j').click(function(){
 		$('.black').css('background-color','#fff');
@@ -106,13 +113,20 @@ $(document).ready(function(){
 		$('#roompage').fadeIn(200);
 	});
 
-	$('#close-pub').click(function(){
+	$('.close-pub').click(function(){
 		$('.black').css('background-color','#000');
 		$('.white').css('background-color','#fff');
 		$('.black>button,.black>h4,.white>button,main h1').fadeIn();
 		$('.black').animate({'width':'50vw'},500);
 		$('#roompage').hide(0);
-	})
+	});
+
+	$('.close-pri').click(function(){
+		$('.black>button,.black>h4,.white>button,main h1').fadeIn();
+		$('.black').animate({'width':'50vw'},200);
+		$('.createPri').animate({'left':'-75vw'},500).hide(0);
+		$('#joinPri').hide(0);
+	});
 
 
 
