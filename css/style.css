@@ -11,6 +11,7 @@ main{
 main>div{
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 	width: 50vw;
 	height: 100vh;
 	float: left;
@@ -188,11 +189,12 @@ h1{
 	display: inline-block;
 	padding:0 0 5px 5px;
 }
-#close{
+#close-pub{
 	float: right;
 	margin: 5px 5px;
 	width: 50px;
 	height: 50px;
+	cursor: pointer;
 }
 #roompage>hr{
 	border: 1px solid #eee;
@@ -213,6 +215,11 @@ h1{
 	font-size: 18px;
 	padding: 5px;
 	margin-left: 20px;
+	transition: all 0.3s ease;
+}
+#yout-sub:hover,.sync-btn:hover{
+	color: #555;
+	border:2px solid #555;
 }
 .sync{
 	display: flex;
@@ -225,6 +232,7 @@ h1{
 	padding: 5px 10px;
 	letter-spacing: 1px;
 	font-size: 20px;
+	transition: all 0.3s ease;
 }
 /*
 #createroom{

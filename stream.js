@@ -49,6 +49,9 @@ var server=http.createServer(app,function(req,res){
 app.get('/', function(req, res) {
            // Send out the index.html
            res.sendFile(__dirname+'/index.html');
+       });
+app.get('/close.png', function(req, res) {
+           // Send out the index.html
            res.sendFile(__dirname+'/close.png');
        });
 app.get('/css/style.css', function(req, res) {

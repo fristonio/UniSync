@@ -106,7 +106,7 @@ $(document).ready(function(){
 		$('#roompage').fadeIn(200);
 	});
 
-	$('#close').click(function(){
+	$('#close-pub').click(function(){
 		$('.black').css('background-color','#000');
 		$('.white').css('background-color','#fff');
 		$('.black>button,.black>h4,.white>button,main h1').fadeIn();
