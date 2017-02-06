@@ -68,8 +68,7 @@ app.get('/script.js', function(req, res) {
 function getrooms(){
 	var roomlist=[];
 	for(var i=0;i<rooms.private.length;i++){
-			var g={'rname':rooms.private[i].name,'rid':rooms.private[i].id};
-			roomlist.push(g);
+			roomlist.push({'rname':rooms.private[i].name,'rid':rooms.private[i].id});
 		}
 	return roomlist;
 }
@@ -91,6 +90,7 @@ io.on('connection', function(client){
 			console.log('set username in progress');
 			for(var i=0;i<rooms.private.length;i++)
 			{	console.log(rooms.private[i].id);
+				//console.log(data.prid);
 				if(rooms.private[i].id==data.prid)
 				{
 					proomno=i;
@@ -121,12 +121,14 @@ io.on('connection', function(client){
 						}
 					}
 				}
-
+			console.log(rooms.private[0].users);
 			client.emit('displayCurrUser',{'prid':client.id,'name':data.name});
 
 		});
 
 		client.on('displayMessagePri',function(data){
+			console.log(data);
+			console.log(rooms.private[0].users);
 			for(var i=0;i<rooms.private.length;i++)
 			{
 				if(data.roomid==rooms.private[i].id)
@@ -134,6 +136,7 @@ io.on('connection', function(client){
 					for(var j=0;j<rooms.private[i].users.length;j++)
 					{
 						console.log("sending data for room manipulation");
+						console.log(rooms.private[i]);
 						io.to(rooms.private[i].users[j].uid).emit('domMan',{'curruser':data.curruser,'msg':data.msg,'roomid':data.roomid});
 					}
 				}
@@ -199,13 +202,13 @@ io.on('connection', function(client){
 	});
 
 	client.on('room-select',function(data){
-		console.log("id for the room being selected by the user is   : "+data.id);
+		console.log("id for the room being selected by the user is   : "+data);
 		for(var i=0;i<rooms.private.length;i++){
-			if(rooms.private[i].id==data.id){
+			if(rooms.private[i].id==data){
 				console.log('Room Found in the database ');
 				//rooms.private[i].users.push(client.id);
 				var room_data=rooms.private[i];
-				delete room_data.password;
+				//delete room_data.password;
 				client.emit("roompagenav",room_data);
 				console.log(rooms.private[i].playing);
 				if(rooms.private[i].playing==true){
@@ -225,8 +228,12 @@ io.on('connection', function(client){
 	client.on('pass_check',function(data){
 		for(var i=0;i<rooms.private.length;i++){
 			if(rooms.private[i].id==data.id){
+				console.log("password "+rooms.private[i].password+"  "+data);
 				if(data.pass==rooms.private[i].password){
 					client.emit('pass_verified');
+				}
+				else{
+					client.emit('wrong-pass');
 				}
 			}}
 	});

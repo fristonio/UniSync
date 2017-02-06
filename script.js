@@ -37,27 +37,38 @@ window.onload=function(){
 
 
 //private room selection 
-
+	var privaterid;
 	$('#private-room').on('click','h3',function(){
+		privaterid=this.id;
+		console.log(privaterid);
 		var password=prompt("Enter the password for the room : ");
+		console.log(password);
 		socket.emit('pass_check',{'pass':password,'id':this.id});
 	});
 
 	socket.on('pass_verified',function(){
 			var name=prompt('Enter a Username to chat');
 			console.log(name);
-			socket.emit('setUsername',{'prid':this.id,'name':name});
+			socket.emit('setUsername',{'prid':privaterid,'name':name});
 			socket.on('setUsernameSuc',function(){
 			alert('username successfully created');
 				});
 			socket.on('userExists',function(){
 			var name=prompt('Username already Exits. Enter A new one');
-			socket.emit('setUsername',{'prid':this.id,'name':name});
+			socket.emit('setUsername',{'prid':privaterid,'name':name});
 			});
-			console.log(this.id);
+			console.log(privaterid);
 			$('#msgsubmitpublic').css({'display':'none'});
-			socket.emit('room-select',this.id);
+			socket.emit('room-select',privaterid);
 		});
+
+	socket.on('wrong-pass',function(){
+		alert('Sorry the password entered did not match with the actual password..... TRY AGAIN ');
+		var password=prompt("Enter the password for the room again : ");
+		console.log(password+"renter");
+		console.log(privaterid);
+		socket.emit('pass_check',{'pass':password,'id':privaterid});
+	});
 
 	socket.on('displayCurrUser',function(data){
 
@@ -87,6 +98,7 @@ window.onload=function(){
 	
 
 	socket.on('domMan',function(data){
+		//alert();
 		console.log(data);
 		added='<span style="font-weight:800">'+data.curruser+' : </span>'+'<span class="message">'+data.msg+'</span><br>';
 		document.getElementById("premsg").innerHTML+=added;
@@ -104,8 +116,9 @@ window.onload=function(){
 		console.log(roomdata);
 	});
 
-	document.getElementsByTagName('form')[0].onsubmit=function(){
-		var link=document.getElementsByTagName('input')[0].value ;
+	document.getElementById('linkform').onsubmit=function(){
+		var link=document.getElementById('linkfield').value;
+		console.log(link);
 		link=link.replace('/watch?v=','/embed/');
 		link=link+"?autoplay=1";
 		socket.emit('dataemit',{'link': link , 'time':Date.now(),'roomid':roomdata.id});
@@ -123,18 +136,46 @@ window.onload=function(){
 	document.getElementsByClassName('sync-btn')[0].onclick=function(){
 		socket.emit('sync',roomdata.id);
 	}
+	/*document.getElementsByTagName('form')[0].onsubmit=function(){
+		var link=document.getElementsByTagName('input')[0].value ;
+		link=link.replace('/watch?v=','/embed/');
+		link=link+"?autoplay=1";
+		socket.emit('dataemit',{'link': link , 'time':Date.now(),'roomid':roomdata.id});
+		document.getElementById("mainvid").src=link;
+		return false;
+	};
+
+	socket.on('playnow',function(data){
+		t=data.curtime;
+		console.log(t);
+		var link=data.link+"&start="+t;
+		console.log(link);
+		document.getElementById("mainvid").src=link;
+	});
+	document.getElementsByClassName('sync-btn')[0].onclick=function(){
+		socket.emit('sync',roomdata.id);
+	}*/
 
 //create private room on the server
 	$('.create').click(function(){
 		$('#createroom').css('display','flex');
-		var roomname=prompt("Enter your room name  :  ");
+		/*var roomname=prompt("Enter your room name  :  ");
 		if(roomname!=null){
 			socket.emit('create-room',roomname);
-		}
+		}*/
+	});
+
+	$('#createform').on('submit',function(){
+		var createroomdata={'rname':'','pass':''};
+		createroomdata.rname=$('#rname').val();
+		createroomdata.pass=$('#pass').val();
+		console.log("the room data for creation is "+createroomdata);
+		socket.emit('create-room',createroomdata);
+		return false;
 	});
 
 	socket.on('room-created',function(data){
-		alert('Congo your room has been created _/\ _ with name  : '+data);
+		alert('Congo your room has been created _/\\ _ with name  : '+data);
 		$('#createroom').css('display','none');
 	});
 
@@ -157,7 +198,7 @@ window.onload=function(){
 
 
 	});
-	
+
 	socket.on('publicdata',function(data){
 		$('#navpage').css('display','none');
 		$('#roompage').css('display','block');
