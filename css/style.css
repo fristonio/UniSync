@@ -242,7 +242,17 @@ h1{
 	color: #555;
 	border:2px solid #555;
 }
+#mainvid{
+	width: 50vw;
+	height: 50vh;
+	border: 2px solid green;
+}
+.videodiv{
+	display: flex;
+	justify-content: center;
+}
 .sync{
+	margin-top: 20px;
 	display: flex;
 	justify-content:center;
 }

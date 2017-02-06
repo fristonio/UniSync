@@ -7,68 +7,55 @@ window.onload=function(){
 
 	var roomdata;
 
-	document.getElementsByClassName('join')[0].onclick=function(){
-		var jr=document.getElementsByClassName('join-room')[0];
-		jr.style.zIndex="5";
-		jr.style.display="flex";
-	};
-
-	document.getElementsByClassName("close")[0].onclick=function(){
-		this.parentNode.style.display="none";
-	};
-
-	/*document.getElementsByClassName('privateroom')[0].onclick=function(){
-	}*/
 	$('.joinPri').click(function(){
 		socket.emit('room-search');
 	});
 	socket.on('roomdata',function(data){
-		$('#joinPri').show(0);//document.getElementById('private-room').style.display="flex";
+		$('#joinPri').show(0);
 		console.log(data);
 		for(var i=0;i<data.length;i++){
-			$("#private-room").append("<h3 id='"+data[i].rid+"'>"+data[i].rname+"</h3>");
+			$("#joinPri").append("<h3 id='"+data[i].rid+"'>"+data[i].rname+"</h3>");
 		}
 	});
 
 
 //private room selection 
-	$('#private-room').on('click','h3',function(){
+	$('#joinPri').on('click','h3',function(){
 		console.log(this.id);
 		socket.emit('room-select',this.id);
 	});
 
 	socket.on('roompagenav',function(data){
-		$('#navpage').css('display','none');
 		$('#roompage').css('display','block');
 		roomdata=data;
 		$('#roompage').attr('id',roomdata.id);
 		console.log(roomdata);
 	});
 
-	document.getElementsByTagName('form')[0].onsubmit=function(){
-		var link=document.getElementsByTagName('input')[0].value ;
+	$('#yout-search').submit(function(){
+		var link = $('.formdiv input').eq(0).val();
 		link=link.replace('/watch?v=','/embed/');
 		link=link+"?autoplay=1";
 		socket.emit('dataemit',{'link': link , 'time':Date.now(),'roomid':roomdata.id});
-		document.getElementById("mainvid").src=link;
+		$('#mainvid').attr('src',link);
 		return false;
-	};
+	})
 
 	socket.on('playnow',function(data){
 		t=data.curtime;
 		console.log(t);
 		var link=data.link+"&start="+t;
 		console.log(link);
-		document.getElementById("mainvid").src=link;
+		$('#mainvid').attr('src','link');
 	});
-	document.getElementsByClassName('sync-btn')[0].onclick=function(){
+
+	$('.sync-btn').click(function(){
 		socket.emit('sync',roomdata.id);
-	}
+	});
 
 //create private room on the server
-	$('.create').click(function(){
-		$('#createroom').css('display','flex');
-		var roomname=prompt("Enter your room name  :  ");
+	$('#pri-sub').click(function(){
+		var roomname = $('#pri-name').val();
 		if(roomname!=null){
 			socket.emit('create-room',roomname);
 		}
@@ -76,7 +63,7 @@ window.onload=function(){
 
 	socket.on('room-created',function(data){
 		alert('Congo your room has been created _/\ _ with name  : '+data);
-		$('#0createroom').css('display','none');
+		$('#createroom').css('display','none');
 	});
 
 //public room joining
@@ -91,17 +78,19 @@ window.onload=function(){
 	});
 };
 
+
+/*jquery animations*/
 $(document).ready(function(){
 
 	$('#btn-pri-c').click(function(){
 		$('.black>button,.black>h4,.white>button,main h1').hide(0);
-		$('.black').animate({'width':'75vw'},500);
-		$('.createPri').css('display','flex').animate({'left':'0'},500);
+		$('.black').animate({'width':'75vw'},400);
+		$('.createPri').css('display','flex').animate({'left':'0'},400);
 	});	
 
 	$('#btn-pri-j').click(function(){
 		$('.black>button,.black>h4,.white>button,main h1').hide(0);
-		$('.black').animate({'width':'75vw'},500);
+		$('.black').animate({'width':'75vw'},400);
 		$('#joinPri').fadeIn();		
 	});
 
@@ -109,7 +98,7 @@ $(document).ready(function(){
 		$('.black').css('background-color','#fff');
 		$('.white').css('background-color','#000');
 		$('.black>button,.black>h4,.white>button,main h1').hide(0);
-		$('.black').animate({'width':'75vw'},500);
+		$('.black').animate({'width':'75vw'},400);
 		$('#roompage').fadeIn(200);
 	});
 
@@ -117,20 +106,15 @@ $(document).ready(function(){
 		$('.black').css('background-color','#000');
 		$('.white').css('background-color','#fff');
 		$('.black>button,.black>h4,.white>button,main h1').fadeIn();
-		$('.black').animate({'width':'50vw'},500);
+		$('.black').animate({'width':'50vw'},400);
 		$('#roompage').hide(0);
 	});
 
 	$('.close-pri').click(function(){
 		$('.black>button,.black>h4,.white>button,main h1').fadeIn();
-		$('.black').animate({'width':'50vw'},200);
-		$('.createPri').animate({'left':'-75vw'},500).hide(0);
+		$('.black').animate({'width':'50vw'},400);
+		$('.createPri').animate({'left':'-75vw'},1).hide(0);
 		$('#joinPri').hide(0);
 	});
-
-
-
-
-
 
 });
