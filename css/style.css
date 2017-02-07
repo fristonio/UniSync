@@ -59,6 +59,20 @@ main h1{
 	color: #000;
 	left: 50vw;
 }
+.black p,.white p{
+	display: none;
+	position: absolute;
+	color: green;
+	bottom: 20vh;
+	font-size: 20px;
+	font-family: 'Roboto',sans-serif;
+}
+.black p{
+	right: 50vw;
+}
+.white p{
+	left: 50vw;
+}
 main h4{
 	position: relative;
 	color: #aaa;
@@ -120,8 +134,19 @@ main h4{
 #joinPri{
 	display: none;
 	position: relative;
-	width: 75vw;
+	margin: 0 auto;
+	width: 50vw;
 	height: 100vh;
+	border-left: 2px solid #eee;
+	border-right: 2px solid #eee;
+}
+#joinPri h3{
+	text-align: center;
+	margin: 0 auto;
+	width: 10vw;
+	color: #fff;
+	padding: 10px 0;
+	border-bottom: 1px solid #666;
 }
 .chat_wrapper{
 	display: none;
@@ -154,18 +179,24 @@ main h4{
 #msgsubmitprivate,#msgsubmitpublic{
 	width: 5vw;
 	height: 5vh;
+	background: transparent;
+	border: 2px solid #fff;
+	color: #fff;
+	font-family: 'Roboto',sans-serif;
 }
 #premsg{
 	width: 25vw;
 	position: absolute;
-	bottom: 6vh;
+	bottom: 8vh;
 	right: 0;
 	padding: 0 0 0 10px;
+	overflow-y: auto;
 }
 .message{
-	font-size: 24px;
+	font-size: 20px;
 }
 #premsg h3{
+	font-size: 20px;
 	display: inline;
 	color: #aaa;
 }
@@ -257,7 +288,6 @@ h1{
 }
 
 .close{
-	display: none; // close button is no cool
 	float: right;
 	margin: 5px 5px;
 	width: 50px;
@@ -270,6 +300,14 @@ h1{
 	z-index: 999;
 	width: 100vw;
 	border: 1px solid #eee;
+}
+.userSucc{
+	position: absolute;
+	top: 2vw;
+	right: 28vw;
+	color: green;
+	font-size: 20px;
+	font-family: 'Roboto',sans-serif;
 }
 .formdiv{
 	display: flex;
@@ -296,7 +334,7 @@ h1{
 #mainvid{
 	width: 49.8vw;
 	height: 50vh;
-	border: 2px solid green;
+	border: 2px solid #eee;
 }
 .videodiv{
 	display: flex;

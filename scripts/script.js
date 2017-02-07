@@ -35,8 +35,9 @@ window.onload=function(){
 		$('.black').animate({'width':'75vw'},400);
 		$('#joinPri').fadeIn();
 		console.log(data);
+		document.getElementById("joinPri_data").innerHTML="";
 		for(var i=0;i<data.length;i++){
-			$('#joinPri').append("<h3 id='"+data[i].rid+"'>"+data[i].rname+"</h3>");
+			$('#joinPri_data').append("<h3 id='"+data[i].rid+"'>"+data[i].rname+"</h3>");
 		}
 	});
 
@@ -58,8 +59,10 @@ window.onload=function(){
 			console.log(name);
 			socket.emit('setUsername',{'prid':privaterid,'name':name});
 			socket.on('setUsernameSuc',function(){
-			//alert('username successfully created');
-				});
+				setTimeout(function(){
+					$('.userSucc').fadeOut(200);
+				},2500)
+			});
 			socket.on('userExists',function(){
 			var name=prompt('Username already Exits. Enter A new one');
 			socket.emit('setUsername',{'prid':privaterid,'name':name});
@@ -80,6 +83,7 @@ window.onload=function(){
 	socket.on('displayCurrUser',function(data){
 
 		console.log('going to display user');
+		document.getElementsByClassName('curruser')[0].innerHTML="";
 		$('.curruser').append('<h3>'+data.name+'</h3>'); //chat current user
 	});
 
@@ -109,6 +113,7 @@ window.onload=function(){
 		console.log(data);
 		added='<span style="font-weight:800">'+data.curruser+' : </span>'+'<span class="message">'+data.msg+'</span><br>';
 		document.getElementById("premsg").innerHTML+=added;
+		document.getElementById("#message").innerHTML="";
 	});
 
 
@@ -202,7 +207,8 @@ window.onload=function(){
 	});
 
 	socket.on('room-created',function(data){
-		alert('Congo your room has been created _/\\ _ with name  : '+data);
+		$('.black p,.white p').fadeIn(200);
+		//alert('Congo your room has been created _/\\ _ with name  : '+data);
 		close_pri(); // go back to home
 	});
 
@@ -212,8 +218,10 @@ window.onload=function(){
 		console.log(name);
 		socket.emit('setUsernamePub',{'prid':this.id,'name':name});
 		socket.on('setUsernameSuc',function(){
-		alert('username successfully created');
-			});
+			setTimeout(function(){
+				$('.userSucc').fadeOut(200);
+			},2500)
+		});
 		socket.on('userExistsPub',function(){
 		var name=prompt('Username already Exits. Enter A new one');
 		socket.emit('setUsernamePub',{'prid':this.id,'name':name});
@@ -276,5 +284,8 @@ window.onload=function(){
 		$('#joinPri').hide(0);
 	};
 
+	$('#btn-pub-j,#btn-pri-j,#btn-pri-c').click(function(){
+		$('.black p,.white p').fadeOut(200);
+	});
 	$('.close-pri').click(close_pri);
 };
