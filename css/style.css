@@ -123,6 +123,52 @@ main h4{
 	width: 75vw;
 	height: 100vh;
 }
+.chat_wrapper{
+	display: none;
+	position: relative;
+	width: 25vw;
+	height: 100vh;
+	font-family: 'Roboto',sans-serif;
+}
+.curruser{
+	position: absolute;
+	top: 0;
+	color: #fff;
+	font-family: 'Roboto',sans-serif;
+	font-size: 20px;
+}
+.curruser>h3{
+	width: 25vw;
+	text-align: center;
+}
+.chatin{
+	position: absolute;
+	width: 25vw;
+	bottom: 0;
+	right: -5px;
+}
+#message{
+	width: 19vw;
+	height: 5vh;
+}
+#msgsubmitprivate,#msgsubmitpublic{
+	width: 5vw;
+	height: 5vh;
+}
+#premsg{
+	width: 25vw;
+	position: absolute;
+	bottom: 6vh;
+	right: 0;
+	padding: 0 0 0 10px;
+}
+.message{
+	font-size: 24px;
+}
+#premsg h3{
+	display: inline;
+	color: #aaa;
+}
 /*
 h1{
 	text-align: center;
@@ -209,7 +255,9 @@ h1{
 	display: inline-block;
 	padding:0 0 5px 5px;
 }
+
 .close{
+	display: none; // close button is no cool
 	float: right;
 	margin: 5px 5px;
 	width: 50px;
@@ -218,6 +266,9 @@ h1{
 	transition: all 0.3s ease;
 }
 #roompage>hr{
+	position: relative;
+	z-index: 999;
+	width: 100vw;
 	border: 1px solid #eee;
 }
 .formdiv{
@@ -243,7 +294,7 @@ h1{
 	border:2px solid #555;
 }
 #mainvid{
-	width: 50vw;
+	width: 49.8vw;
 	height: 50vh;
 	border: 2px solid green;
 }

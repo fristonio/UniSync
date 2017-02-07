@@ -26,7 +26,7 @@
 							</tr>
 							<tr>
 								<td><label>Password</label></td>
-								<td><label><input type="password" name="pri-pass"></label></td>
+								<td><label><input type="password" name="pri-pass" id="pri-pass"></label></td>
 							</tr>
 							<tr>
 								<td colspan="2"><br><button type="button" id="pri-sub">Create</button></td>
@@ -58,6 +58,15 @@
 			<div class="white">
 				<h1>ur Room</h1>
 				<button class="join" id="btn-pub-j">Join Public</button>
+				<div class="chat_wrapper">
+					<div class="curruser"></div>
+					<div id="premsg"></div>
+					<div class="chatin">
+						<input type="text" name="msg" placeholder="enter your message" id="message" autocomplete="off">	
+						<button type="button" name="button" id="msgsubmitprivate">SendPri</button>
+						<button type="button" name="button" id="msgsubmitpublic">SendPub</button>	
+					</div>
+				</div>
 			</div>
 		</main>
 
