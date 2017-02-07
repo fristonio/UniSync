@@ -1,21 +1,18 @@
 #Name of Application 
-******
+
 ## Team Name
--------------------
+
 ### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;core_i3
 
 ## Team Members
----------------------
 * [Deepesh Pathak](https://github.com/fristonio/)
 * [Ankit Kataria](https://github.com/ankitkataria/)
 * [Yash Dev Lamba](https://github.com/ydlamba/)
 
 ## Aim
---------------------
 Our Aim is to develop a **speaker integration system cum video discussion platform**. Very often we encounter the problem of low speaker output. We wanted to tackle that problem by getting multiple device speakers to play the same thing in unison. The video discussion platform has been achieved through a Chat feature in the interface.
 <br>
 ##Utility
--------------------
 
 1. The platform can be used to **discuss issues** of mass concern
 2. It can be used by students who attend **online lectures** to interacte directly with the professor to clarify doubts
@@ -23,7 +20,6 @@ Our Aim is to develop a **speaker integration system cum video discussion platfo
 <br>
 
 ##Feature List
------------------------
 Our project is made on **Node.js,Socket.IO and ExpressJS**.
 
 1. Playing videos via entering the **youtube link** in the field provided.
@@ -35,7 +31,6 @@ Our project is made on **Node.js,Socket.IO and ExpressJS**.
 <br>
 
 ##How To Use
-------------
 Links to Web App: [Project](dsyn.cf)
 
 1. Create a Private room.
@@ -52,7 +47,6 @@ Links to Web App: [Project](dsyn.cf)
 
 
 ##TODO
------------
 
 - [ ]Prettify the code for better understanding
 - [ ]Add a search feature for songs and videos
