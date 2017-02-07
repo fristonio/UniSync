@@ -1,20 +1,84 @@
-<html>
+<html lang="en">
 	<head>
-		<link rel="stylesheet" href="/style.css">
+		<meta charset="utf-8">	
+		<meta name="viewport" content="width=device-width, initial-scale=1">	
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	</head>
-	<body>
-		<div id="navpage">
 
-			<div id="private-room">
-				
+	<body>
+		<main>
+			<div class="black">
+				<h1>Choose yo</h1>
+				<button class="create" id="btn-pri-c">Create Private</button>
+				<h4>or</h4>
+				<button class="create" id="btn-pri-j">Join Private</button>
+				<section class="createPri">
+					<img src="close-w.png" class="close close-pri">
+					<form class="form-pri">
+						<table>
+							<tr>
+								<td><label>Private Name</label></td>
+								<td><label><input type="text" name="pri-name" id="pri-name"></label></td>
+							</tr>
+							<tr>
+								<td><label>Password</label></td>
+								<td><label><input type="password" name="pri-pass" id="pri-pass"></label></td>
+							</tr>
+							<tr>
+								<td colspan="2"><br><button type="button" id="pri-sub">Create</button></td>
+							<tr>
+						</table>
+					</form>
+				</section>
+				<div id="joinPri">
+					<div id="joinPri_data"></div>
+					<img src="close-w.png" class="close close-pri">
+				</div>
+
+				<section class="roompage">
+					<h2>Name of Application</h2><!--<img src="close-b.png" class="close close-pub">--><span class="userSucc">Username Successfully Created</span><hr>
+					<div class="formdiv">
+						<form action="" id="yout-search">
+							<span class="yout-link">Enter Youtube Link : </span>
+							<input type="text" name="link" id="link">
+							<input type="submit" id="yout-sub">
+						</form>
+					</div>
+					<div class="videodiv">
+						<iframe src="" frameborder="0" id="mainvid" height="315" width="560" allowfullscreen></iframe>
+					</div>
+					<div class="sync">
+						<button class="sync-btn">Sync</button>
+					</div>
+				</section>
+				<p>Your Private Ro</p>
 			</div>
+			<div class="white">
+				<h1>ur Room</h1>
+				<button class="join" id="btn-pub-j">Join Public</button>
+				<div class="chat_wrapper">
+					<div class="curruser"></div>
+					<div id="premsg"></div>
+					<div class="chatin">
+						<input type="text" name="msg" placeholder="Enter your message" id="message" autocomplete="off">	
+						<button type="button" name="button" id="msgsubmitprivate">Send</button>
+						<button type="button" name="button" id="msgsubmitpublic">Send</button>	
+					</div>
+				</div>
+				<p>om is Ready.</p>
+			</div>
+		</main>
+
+			
+		<!--
 			<div class="join-room">
 				<span class="glyphicon glyphicon-remove close"></span>
-					<button class="btn btn-primary publicroom"><h3>Public Room</h3></button>
-					<button class="btn btn-primary privateroom"><h3>Private Room</h3></button>
+				<button class="btn btn-primary publicroom"><h3>Public Room</h3></button>
+				<button class="btn btn-primary privateroom"><h3>Private Room</h3></button>
 			</div>
 
 			<div id="room-select">
@@ -28,54 +92,10 @@
 				</div>
 			</div>
 
-			<div id="createroom">
-				<form action="" id="createform">
-					Name : <input type="text" name="roomname" id="rname"><br>
-					Password : <input type="password" name="passphrase" id="pass"><br>
-					<input type="submit">
-				</form>
-			</div>
-
-		</div>
-
-			<div id="roompage">
-				<h1>APP DEMO</h1>
-				<div class="formdiv">
-					<form action="" id="linkform">
-						<h3>Enter the video link from the youtube : </h3>
-						<input type="text" name="link" id="linkfield"><br>
-						<input type="submit" id="submit">
-					</form>
-				</div>
-				<div class="videodiv">
-					<iframe src="" frameborder="0" id="mainvid" height="315" width="560" allowfullscreen></iframe>
-				</div>
-				<div class="sync">
-					<button class="btn btn-info sync-btn"><h4>SYNC</h4></button>
-				</div>
-				
-				<!--<form>
-				User Name for Chat:
-				<input type="text" name="username" id="username">
-				<button type="button" name="button" onclick="setUsername()">Submit</button>
-				</form>		
+			<div id="createroom"></div>
+		-->
 		
-				</div>-->
-				<div class="chat-wrapper">
-					<div id="premsg">
-						
 
-					</div>
-					<div>
-							<span class="curruser"></span>
-							<input type="text" name="msg" placeholder="enter your message" id="message" autocomplete="off">	
-							<button type="button" name="button" id="msgsubmitprivate">SendPri</button>
-							<button type="button" name="button" id="msgsubmitpublic">SendPub</button>	
-					</div>
-				</div>
-			</div>
-			
-
-		<script src="/script.js"></script>
+		<script src="scripts/script.js"></script>
 	</body>
 </html>

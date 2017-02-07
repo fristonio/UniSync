@@ -1,0 +1,281 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	overflow: hidden;
+}
+main{
+	width: 200vw;
+}
+main>div{
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 50vw;
+	height: 100vh;
+	float: left;
+	transition: background 0.3s ease;
+}
+.black>button,.white>button{
+	display: block;
+	position: relative;
+	background: transparent;
+	padding: 10px 30px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
+	letter-spacing: 1px;
+	margin: 0 auto;
+	transition: all 0.3s ease;
+}
+.create{
+	border: 2px solid #fff;
+	color: #fff;
+}
+.join{
+	border: 2px solid #000;
+	color: #000;
+}
+.create:hover{
+	background:#fff;
+	color: #000;
+}
+.join:hover{
+	background:#000;
+	color: #fff;
+}
+main h1{
+	position: absolute;
+	top: 3vw;
+	font-size: 40px;
+	font-family: 'Roboto', sans-serif;
+	letter-spacing: 1px;
+}
+.black h1{
+	color: #fff;
+	right: 50vw;
+}
+.white h1{
+	color: #000;
+	left: 50vw;
+}
+.black p,.white p{
+	display: none;
+	position: absolute;
+	color: green;
+	bottom: 20vh;
+	font-size: 20px;
+	font-family: 'Roboto',sans-serif;
+}
+.black p{
+	right: 50vw;
+}
+.white p{
+	left: 50vw;
+}
+main h4{
+	position: relative;
+	color: #aaa;
+	letter-spacing: 1px;
+}
+.black{
+	background: #000;
+}
+.white{
+	background: #fff;
+}
+.createPri{
+	display: none;
+	position: relative;
+	left: -75vw;
+	width: 75vw;
+	height: 100vh;
+	align-items: center;
+	justify-content: center;
+}
+.close-pri{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 30px !important;
+	height: 30px !important;
+}
+.form-pri{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 30vw;
+	height: 200px;
+	border: 2px solid #fff;
+}
+.form-pri label{
+	display: flex;
+	justify-content: center;
+	color: #fff;
+	letter-spacing: 2px;
+	font-weight: 100;
+	font-family: 'Roboto',sans-serif;
+}
+.form-pri td{
+	padding: 10px;
+}
+.form-pri input{
+	color: #000;
+	font-family: 'Roboto',sans-serif;
+}
+#pri-sub{
+	background: transparent;
+	padding: 5px 15px;
+	color: #fff;
+	font-family: 'Roboto',sans-serif;
+	border:2px solid #fff;
+	margin-left: 130px;
+}
+#joinPri{
+	display: none;
+	position: relative;
+	margin: 0 auto;
+	width: 50vw;
+	height: 100vh;
+	border-left: 2px solid #eee;
+	border-right: 2px solid #eee;
+}
+#joinPri h3{
+	text-align: center;
+	margin: 0 auto;
+	width: 10vw;
+	color: #fff;
+	padding: 10px 0;
+	border-bottom: 1px solid #666;
+}
+.chat_wrapper{
+	display: none;
+	position: relative;
+	width: 25vw;
+	height: 100vh;
+	font-family: 'Roboto',sans-serif;
+}
+.curruser{
+	position: absolute;
+	top: 1vw;
+	color: #fff;
+	font-family: 'Roboto',sans-serif;
+	font-size: 20px;
+}
+.curruser>h3{
+	width: 25vw;
+	text-align: center;
+}
+.chatin{
+	position: absolute;
+	width: 25vw;
+	bottom: 0;
+	right: -5px;
+}
+#message{
+	width: 19vw;
+	height: 5vh;
+}
+#msgsubmitprivate,#msgsubmitpublic{
+	width: 5vw;
+	height: 5vh;
+	background: transparent;
+	border: 2px solid #fff;
+	color: #fff;
+	font-family: 'Roboto',sans-serif;
+}
+#premsg{
+	width: 25vw;
+	position: absolute;
+	bottom: 8vh;
+	right: 0;
+	padding: 0 0 0 10px;
+	overflow-y: auto;
+}
+.message{
+	font-size: 20px;
+}
+#premsg h3{
+	font-size: 20px;
+	display: inline;
+	color: #aaa;
+}
+.roompage{
+	display: none;
+	width: 75vw;
+	height: 100vh;
+	color: #000;
+	font-family: 'Roboto',sans-serif;
+}
+.roompage>h2{
+	display: inline-block;
+	padding:0 0 5px 5px;
+}
+
+.close{
+	float: right;
+	margin: 5px 5px;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+.roompage>hr{
+	position: relative;
+	z-index: 999;
+	width: 100vw;
+	border: 1px solid #eee;
+}
+.userSucc{
+	position: absolute;
+	top: 2vw;
+	right: 28vw;
+	color: green;
+	font-size: 20px;
+	font-family: 'Roboto',sans-serif;
+}
+.formdiv{
+	display: flex;
+	justify-content: center;
+	font-size: 20px;
+	padding: 30px 5px;
+}
+.yout-link{
+	padding: 0 10px;
+}
+
+#yout-sub{
+	background: transparent;
+	border: 2px solid #000;
+	font-size: 18px;
+	padding: 5px;
+	margin-left: 20px;
+	transition: all 0.3s ease;
+}
+#yout-sub:hover,.sync-btn:hover{
+	color: #555;
+	border:2px solid #555;
+}
+#mainvid{
+	width: 50vw;
+	height: 50vh;
+	border: 2px solid #eee;
+}
+.videodiv{
+	display: flex;
+	justify-content: center;
+}
+.sync{
+	margin-top: 20px;
+	display: flex;
+	justify-content:center;
+}
+
+.sync-btn{
+	background: transparent;
+	border: 2px solid #000;
+	padding: 5px 10px;
+	letter-spacing: 1px;
+	font-size: 20px;
+	transition: all 0.3s ease;
+}
