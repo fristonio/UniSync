@@ -311,7 +311,7 @@ io.on('connection', function(client){
 			t=parseInt(t)+1;
 			rooms.public.nowplay.curtime=t;
 			for(var j=0;j<rooms.public.users.length;j++){
-				io.to(rooms.public.users[j]).emit('playnow',rooms.public.nowplay);
+				io.to(rooms.public.users[j].uid).emit('playnow',rooms.public.nowplay);
 			}
   		}
   	});
