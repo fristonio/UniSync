@@ -335,5 +335,5 @@ io.on('connection', function(client){
 });
 
 
-server.listen(3010);
+server.listen(process.env.PORT || 3010);
 console.log('Server running at 3010 port in the localhost');
