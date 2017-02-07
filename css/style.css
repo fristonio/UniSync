@@ -244,14 +244,14 @@ h1{
 	cursor: pointer;
 }
 */
-#roompage{
+.roompage{
 	display: none;
 	width: 75vw;
 	height: 100vh;
 	color: #000;
 	font-family: 'Roboto',sans-serif;
 }
-#roompage>h2{
+.roompage>h2{
 	display: inline-block;
 	padding:0 0 5px 5px;
 }
@@ -265,7 +265,7 @@ h1{
 	cursor: pointer;
 	transition: all 0.3s ease;
 }
-#roompage>hr{
+.roompage>hr{
 	position: relative;
 	z-index: 999;
 	width: 100vw;

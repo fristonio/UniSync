@@ -50,7 +50,7 @@ window.onload=function(){
 		console.log(password);
 		socket.emit('pass_check',{'pass':password,'id':this.id});
 		$('#joinPri').hide(0);
-		//$('#roompage,.chat_wrapper').fadeIn(200);
+		//$('.roompage,.chat_wrapper').fadeIn(200);
 	});
 
 	socket.on('pass_verified',function(){
@@ -120,12 +120,11 @@ window.onload=function(){
 		$('.white').css('background-color','#000');
 		$('.black>button,.black>h4,.white>button,main h1').hide(0);
 		$('.black').animate({'width':'75vw'},400);
-		$('#roompage').fadeIn(200);
-		$('.chat_wrapper').show(200);
+		$('.roompage,.chat_wrapper').fadeIn(200);
 		/*$('#navpage').css('display','none');
-		$('#roompage').css('display','block');*/
+		$('.roompage').css('display','block');*/
 		roomdata=data;
-		$('#roompage').attr('id',roomdata.id); // possible problem
+		$('.roompage').attr('id',roomdata.id); // possible problem
 		console.log(roomdata);
 	});
 /*
@@ -194,7 +193,6 @@ window.onload=function(){
 	});*/
 
 	$('#pri-sub').on('click',function(){
-		close_pri();
 		var createroomdata={'rname':'','pass':''};
 		createroomdata.rname=$('#pri-name').val();
 		createroomdata.pass=$('#pri-pass').val();
@@ -205,7 +203,7 @@ window.onload=function(){
 
 	socket.on('room-created',function(data){
 		alert('Congo your room has been created _/\\ _ with name  : '+data);
-		$('#createroom').css('display','none'); // open roompage
+		close_pri(); // go back to home
 	});
 
 //public room joining
@@ -220,19 +218,19 @@ window.onload=function(){
 		var name=prompt('Username already Exits. Enter A new one');
 		socket.emit('setUsernamePub',{'prid':this.id,'name':name});
 		});
-		$('#msgsubmitprivate').css({'display':'none'}); //chat thing
+		$('#msgsubmitprivate').css({'display':'none'}); //chat private button display none
 		socket.emit('joinpublic',name);
 
 	});
 
 	socket.on('publicdata',function(data){
 		/*$('#navpage').css('display','none');
-		$('#roompage').css('display','block');*/ //possible error
+		$('.roompage').css('display','block');*/ //possible error
 		$('.black').css('background-color','#fff');
 		$('.white').css('background-color','#000');
 		$('.black>button,.black>h4,.white>button,main h1').hide(0);
 		$('.black').animate({'width':'75vw'},400);
-		$('#roompage,.chat_wrapper').fadeIn(200);
+		$('.roompage,.chat_wrapper').fadeIn(200);
 		roomdata=data;
 		console.log(roomdata.id);
 	});
@@ -260,7 +258,7 @@ window.onload=function(){
 		$('.white').css('background-color','#000');
 		$('.black>button,.black>h4,.white>button,main h1').hide(0);
 		$('.black').animate({'width':'75vw'},400);
-		$('#roompage,.chat_wrapper').fadeIn(200);
+		$('.roompage,.chat_wrapper').fadeIn(200);
 	});*/
 
 	$('.close-pub').click(function(){
@@ -268,7 +266,7 @@ window.onload=function(){
 		$('.white').css('background-color','#fff');
 		$('.black>button,.black>h4,.white>button,main h1').fadeIn();
 		$('.black').animate({'width':'50vw'},400);
-		$('#roompage,.chat_wrapper').hide(0);
+		$('.roompage,.chat_wrapper').hide(0);
 	});
 
 	function close_pri(){
