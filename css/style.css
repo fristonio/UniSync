@@ -157,7 +157,7 @@ main h4{
 }
 .curruser{
 	position: absolute;
-	top: 0;
+	top: 1vw;
 	color: #fff;
 	font-family: 'Roboto',sans-serif;
 	font-size: 20px;
@@ -332,7 +332,7 @@ h1{
 	border:2px solid #555;
 }
 #mainvid{
-	width: 49.8vw;
+	width: 50vw;
 	height: 50vh;
 	border: 2px solid #eee;
 }

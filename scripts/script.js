@@ -113,7 +113,7 @@ window.onload=function(){
 		console.log(data);
 		added='<span style="font-weight:800">'+data.curruser+' : </span>'+'<span class="message">'+data.msg+'</span><br>';
 		document.getElementById("premsg").innerHTML+=added;
-		document.getElementById("#message").innerHTML="";
+		document.getElementById("message").value="";
 	});
 
 
@@ -149,6 +149,7 @@ window.onload=function(){
 		link=link+"?autoplay=1";
 		socket.emit('dataemit',{'link': link , 'time':Date.now(),'roomid':roomdata.id});
 		$('#mainvid').attr('src',link);
+		document.getElementById("link").value="";
 		return false;
 	});
 
@@ -203,6 +204,8 @@ window.onload=function(){
 		createroomdata.pass=$('#pri-pass').val();
 		console.log("the room data for creation is "+createroomdata);
 		socket.emit('create-room',createroomdata);
+		document.getElementById("pri-name").value="";
+		document.getElementById("pri-pass").value="";
 		return false;
 	});
 
