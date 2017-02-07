@@ -159,7 +159,7 @@ window.onload=function(){
 		console.log(t);
 		var link=data.link+"&start="+t;
 		console.log(link);
-		$('#mainvid').attr('src',link); //document.getElementById("mainvid").src=link;
+		$('#mainvid').attr('src',link);
 	});
 
 	$('.sync-btn').click(function(){
@@ -208,6 +208,13 @@ window.onload=function(){
 		document.getElementById("pri-pass").value="";
 		return false;
 	});
+
+	 $('.createPri').keydown(function(event) {
+		if (event.keyCode == 13) {
+		  $('#pri-sub').click();
+		  return false;
+		}
+	 });	
 
 	socket.on('room-created',function(data){
 		$('.black p,.white p').fadeIn(200);
@@ -291,4 +298,11 @@ window.onload=function(){
 		$('.black p,.white p').fadeOut(200);
 	});
 	$('.close-pri').click(close_pri);
+
+	 $('.chatin').keydown(function(event) {
+		if (event.keyCode == 13) {
+		  $('.chatin button').click();
+		  return false;
+		}
+	 });
 };
