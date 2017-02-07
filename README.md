@@ -31,7 +31,7 @@ Our project is made on **Node.js,Socket.IO and ExpressJS**.
 <br>
 
 ##How To Use
-Links to Web App: [Project](dsyn.cf)
+Links to Web App: [Project](https://aqueous-dusk-88302.herokuapp.com/)
 
 1. Create a Private room.
 2. You will be redirected to the home page with a success message.
@@ -48,10 +48,10 @@ Links to Web App: [Project](dsyn.cf)
 
 ##TODO
 
-- [ ]Prettify the code for better understanding
-- [ ]Add a search feature for songs and videos
-- [ ]Using Youtube API for syncing the higher quality videos.
-- [ ]Improving Security and minor Bugs
+- Prettify the code for better understanding
+- Add a search feature for songs and videos
+- Using Youtube API for syncing the higher quality videos.
+- Improving Security and minor Bugs
 
 
 
