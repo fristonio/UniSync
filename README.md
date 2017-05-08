@@ -1,4 +1,4 @@
-#UniSync-CFD2k17 
+# UniSync-CFD2k17 
 
 ## Team Name
 
@@ -12,14 +12,14 @@
 ## Aim
 Our Aim is to develop a **speaker integration system cum video discussion platform**. Very often we encounter the problem of low speaker output. We wanted to tackle that problem by getting multiple device speakers to play the same thing in unison. The video discussion platform has been achieved through a Chat feature in the interface.
 <br>
-##Utility
+## Utility
 
 1. The platform can be used to **discuss issues** of mass concern
 2. It can be used by students who attend **online lectures** to interacte directly with the professor to clarify doubts
 3. Can be used for recreational purposes to **integrate speaker output** and enjoy movies with friends 'theatre style'
 <br>
 
-##Feature List
+## Feature List
 Our project is made on **Node.js,Socket.IO and ExpressJS**.
 
 1. Playing videos via entering the **youtube link** in the field provided.
@@ -30,7 +30,7 @@ Our project is made on **Node.js,Socket.IO and ExpressJS**.
 4. **Chat** to Share views with the users in the room.
 <br>
 
-##How To Use
+## How To Use
 Links to Web App: [Project](https://aqueous-dusk-88302.herokuapp.com/)
 
 1. Create a Private room.
@@ -42,11 +42,11 @@ Links to Web App: [Project](https://aqueous-dusk-88302.herokuapp.com/)
 7. Use the Sync button to integrate the output of the speaker. **(Syncing multiple times is required initially to produce minimum lag)**
 8. Or you can join the public room to avoid the hassle of creating one :p.
 
-######NOTE: It is advisable to run the video in the *lowest possible quality* to produce the best sync result.
-######NOTE: Multiple Syncing is required,will be improved in later versions.
+###### NOTE: It is advisable to run the video in the *lowest possible quality* to produce the best sync result.
+###### NOTE: Multiple Syncing is required,will be improved in later versions.
 
 
-##TODO
+## TODO
 
 - Prettify the code for better understanding
 - Add a search feature for songs and videos
