@@ -22,7 +22,7 @@ Our Aim is to develop a **speaker integration system cum video discussion platfo
 ## Feature List
 Our project is made on **Node.js,Socket.IO and ExpressJS**.
 
-1. Playing videos via entering the **youtube link** in the field provided.
+1. Playing videos by entering the **youtube link** in the field provided.
 2. Ability to **create rooms** for seperate set of users. There are two types of room. 
 	- **Private Rooms** which can be used for recreational and academic purposes.
 	- A **Universal Public Room** for discussion on issues of mass concern.
@@ -34,11 +34,11 @@ Our project is made on **Node.js,Socket.IO and ExpressJS**.
 Links to Web App: [Project](https://aqueous-dusk-88302.herokuapp.com/)
 
 1. Create a Private room.
-2. You will be redirected to the home page with a success message.
+2. You will be redirected to the home page with a "success" message.
 3. Proceed to 'Join Room'
 4. Select the Room and enter the password when prompted.
 5. Select a username for chat. You will be redirected to the room.
-6. Enter the Youtube link of the video you wish to enjoy together.
+6. Enter the Youtube link of the video you wish to "enjoy" together.
 7. Use the Sync button to integrate the output of the speaker. **(Syncing multiple times is required initially to produce minimum lag)**
 8. Or you can join the public room to avoid the hassle of creating one :p.
 
